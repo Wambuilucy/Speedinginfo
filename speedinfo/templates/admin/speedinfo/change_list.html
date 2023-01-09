@@ -1,0 +1,28 @@
+{% extends "admin/change_list.html" %}
+
+{% load static %}
+
+{% block object-tools %}
+    <ul class="object-tools">
+        <li>
+            <a href="{% url "admin:speedinfo-profiler-switch" %}"
+                {% if profiler_is_on %}class="turned-on">Turn off{% else %}class="turned-off">Turn on{% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url "admin:speedinfo-profiler-export" %}">Export .CSV</a>
+        </li>
+        <li>
+            <a href="{% url "admin:speedinfo-profiler-reset" %}" onclick="return confirm('Are you sure?')">Reset</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block result_list %}
+    {{ block.super }}
+
+    <script type="text/javascript" src="{% static "speedinfo/js/jquery.fixed-table-header.js" %}"></script>
+    <script type="text/javascript">
+        django.jQuery('#result_list').fixedHeader();
+    </script>
+{% endblock %}
